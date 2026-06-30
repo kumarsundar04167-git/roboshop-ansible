@@ -19,7 +19,7 @@
        replace: '0.0.0.0'
    - name: Start and enable mongodb
         service:
-        name: mongodb
+        name: mongod
         state: started
         enabled: true
 
