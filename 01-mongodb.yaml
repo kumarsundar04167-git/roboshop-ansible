@@ -2,15 +2,15 @@
   hosts: mongodb
   become: yes
   tasks:
-   - name: installing mongodb server
-     package:
-      name: mongodb-org
-      state: present
-
    - name: copy mongodb repo
      copy:
       src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
+
+   - name: installing mongodb server
+     package:
+      name: mongodb-org
+      state: present
    
    - name: Replace all occurrences of local with remote
      ansible.builtin.replace:
@@ -22,4 +22,5 @@
         name: mongod
         state: started
         enabled: true
-
+    
+    
