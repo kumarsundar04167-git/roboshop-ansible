@@ -8,4 +8,4 @@ CATALOGUE_HOST: catalogue.devopsonline.online
 USER_HOST: user.devopsonline.online
 CART_HOST: cart.devopsonline.online
 SHIPPING_HOST: shipping.devopsonline.online
-PAYMENT_HOST: payment.devopsonline
+PAYMENT_HOST: payment.devopsonline.online
