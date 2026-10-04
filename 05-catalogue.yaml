@@ -42,48 +42,51 @@
            dest: /app
            remote_src: yes
 
-      - name: install dependencies
-        community.general.npm:
+      
+     - name: install dependencies
+       community.general.npm:
             path: /app
 
-      - name: copy catalogue service file
-        template:
+     
+     
+     - name: copy catalogue service file
+       template:
              src: catalogue.service.j2
              dest: /etc/systemd/system/catalogue.service
 
-      - name: copy mongo.repo file
-        copy:
+     - name: copy mongo.repo file
+       copy:
              src: mongo.repo
              dest: /etc/yum.repos.d/mongo.repo
 
-      - name: install mongodb client
-        package:
+     - name: install mongodb client
+       package:
              name: mongodb-mongosh
              state: present
       
-      - name: check catalogue schema exist ot not
-        shell: mongosh --host "{{ MONGODB_HOST }}" --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
-        register: catalogue_output
-        tags:
+     - name: check catalogue schema exist or not
+       shell: mongosh --host "{{ MONGODB_HOST }}" --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+       register: catalogue_output
+       tags:
          - mongodb
-       - name: print catalogue_output
+     - name: print catalogue_output
          debug: 
             msg: "{{ catalogue_output }}"
-         tags:
+       tags:
           - mongodb
           
-      - name: load products
-        shell: mongosh --host {{ MONGODB_HOST }} </app/db/master-data.js
-        when: catalogue_output.stdout | int < 0
-        tags:
+     - name: load products
+       shell: mongosh --host {{ MONGODB_HOST }} </app/db/master-data.js
+       when: catalogue_output.stdout | int < 0
+       tags:
           - mongodb
 
-      - name: deamon reload
-        systemd_service:
+     - name: deamon reload
+       systemd_service:
             name: catalogue
             daemon_reload: true
-      - name: enable and start catalogue
-        service:
+     - name: enable and start catalogue
+       service:
             name: catalogue
             state: restarted
             enabled: yes
