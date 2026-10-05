@@ -1,7 +1,7 @@
 - name: configuring catalogue server
   hosts: catalogue
   tasks:
-     - name: enabling nodejs: 20
+     - name: enabling nodejs  20
        cammand: dnf module enable nodejs:20 -y
 
      - name: installing nodejs
