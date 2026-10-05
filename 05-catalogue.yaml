@@ -1,8 +1,9 @@
 - name: configuring catalogue server
   hosts: catalogue
+  become: yes
   tasks:
      - name: enabling nodejs  20
-       cammand: dnf module enable nodejs:20 -y
+       command: dnf module enable nodejs:20 -y
 
      - name: installing nodejs
        package:
@@ -37,7 +38,7 @@
           dest: /tmp/catalogue.zip
 
      - name: unzipping the code
-       unarchieve:
+       unarchive:
            src: /tmp/catalogue.zip
            dest: /app
            remote_src: yes
@@ -70,8 +71,8 @@
        tags:
          - mongodb
      - name: print catalogue_output
-         debug: 
-            msg: "{{ catalogue_output }}"
+         debug:
+           msg: "{{ catalogue_output }}"
        tags:
           - mongodb
           
