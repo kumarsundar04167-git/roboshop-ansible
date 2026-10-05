@@ -71,7 +71,7 @@
        tags:
          - mongodb
      - name: print catalogue_output
-         debug:
+       debug:
            msg: "{{ catalogue_output }}"
        tags:
           - mongodb
